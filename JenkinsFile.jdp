@@ -2,7 +2,7 @@ pipeline {
     agent none
     stages {
         stage('Build All') {
-            failFast true
+            //failFast true
             parallel {
                 stage('Back-end') {
                     agent {
@@ -45,6 +45,15 @@ pipeline {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
+                stage('RobotFramework E2E Tests') {
+                    agent {
+                        docker { image 'docker:latest' }
+                    }
+                    steps {
+                        sh "docker-compose --version"
+                    }
+                }
+
                 stage('Firefox') {
                     agent {
                         docker { image 'selenium/standalone-firefox-debug' }
