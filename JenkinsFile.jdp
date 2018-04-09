@@ -34,6 +34,14 @@ pipeline {
                         }
                     }
                 }
+                stage('Login'){
+                     withCredentials([usernameColonPassword(credentialsId: 'mylogin', variable: 'USERPASS')]) {
+                        sh '''
+                        set +x
+                        curl -u "$USERPASS" https://lingaro.com/ > output
+                        '''
+                    }
+                }
             }
         }
         stage('Test on All Supported') {
