@@ -35,7 +35,10 @@ pipeline {
                     }
                 }
                 stage('Login'){
-                     withCredentials([usernameColonPassword(credentialsId: 'mylogin', variable: 'USERPASS')]) {
+                    agent {
+                        docker { image 'ubuntu' }
+                    }
+                    withCredentials([usernameColonPassword(credentialsId: 'mylogin', variable: 'USERPASS')]) {
                         sh '''
                         set +x
                         curl -u "$USERPASS" https://lingaro.com/ > output
