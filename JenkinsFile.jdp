@@ -38,11 +38,13 @@ pipeline {
                     agent {
                         docker { image 'ubuntu' }
                     }
-                    withCredentials([usernameColonPassword(credentialsId: 'mylogin', variable: 'USERPASS')]) {
+                    steps{
+                        withCredentials([usernameColonPassword(credentialsId: 'mylogin', variable: 'USERPASS')]) {
                         sh '''
                         set +x
                         curl -u "$USERPASS" https://lingaro.com/ > output
                         '''
+                        }
                     }
                 }
             }
