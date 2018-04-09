@@ -2,9 +2,6 @@ pipeline {
     agent none
     stages {
         stage('Build All') {
-            //failFast true
-            parallel {
-                }
                 stage('Login'){
                     agent {
                         docker { image 'ubuntu' }
@@ -23,5 +20,4 @@ pipeline {
                 }
             }
         }
-    }
 }
