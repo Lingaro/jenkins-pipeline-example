@@ -1,6 +1,15 @@
 pipeline {
     agent none
     stages {
+        stage('Logs'){
+            agent {
+                        docker { image 'ubuntu' }
+            }
+            steps{
+                sh 'env'
+                sh 'set'
+            }
+        }
         stage('Build All') {
             //failFast true
             parallel {
